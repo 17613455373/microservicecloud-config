@@ -1,0 +1,9 @@
+#一旦运行文件,首先会去找3344端口中的https://github.com/17613455373/microservicecloud-config-demo.git
+#路径下的microservicecloud-config-client文件的dev的配置,读取出dev或test的端口为当前这个服务的端口,访问对应的配置
+spring:
+  cloud:
+    config:
+      name: microservicecloud-config-client #需要从github上读取的资源名称，注意没有yml后缀名
+      profile: test   #本次访问的配置项  dev8201  test 8202
+      label: master   
+      uri: http://config-3344.com:3344  #本微服务启动后先去找3344号服务，通过SpringCloudConfig获取GitHub的服务地址

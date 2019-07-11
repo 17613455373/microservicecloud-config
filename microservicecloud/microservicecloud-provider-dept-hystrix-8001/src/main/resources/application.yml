@@ -1,0 +1,44 @@
+server:
+  port: 8001   #  配置启动端口号  
+
+mybatis:
+  config-localtion: classpath:mybatis/classpath:mybatis.cfg.xml #mybatis配置文件的路径
+  type-aliases-package: com.atguigu.springcloud.entities   #  定义所有操作类的别名所在包
+  mapper-locations: classpath:mybatis/mapper/*.xml    #  所有的mapper映射文件
+
+spring:
+  application:
+    name: microservicecloud-dept
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource  #  配置当前要使用的数据源的操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver    #  配置mysql的驱动程序类
+    url: jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=UTF-8         #  数据库连接地址
+    username: admin                                 #  数据库用户名
+    password: 123456                                 #  数据库密码
+    filters: stat,wall,log4j                      #  配置druid过滤器，开启监控
+    dbcp2:                                        #  进行数据库连接池的配置
+      min-idle: 5                                 #  数据库连接池的最小维持连接数
+      initial-size: 5                             #  初始化提供的连接数
+      max-total: 5                                #  最大连接数
+      max-wait-millis: 200                        #  等待连接获取的最大超时时间
+      
+      
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url: 
+      #以前的写法，将provider微服务注册到单机的Eureka服务中心
+      #defaultZone: http://localhost:7001/eureka  
+      #现在的写法，将provider微服务注册到集群额每台Eureka服务中心，用,分割
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka   
+  instance:
+    instance-id: microservicecloud-dept8001-hystrix #自定义服务名称
+    prefer-ip-address: true  #访问路径显示IP地址 
+#eureka.server.enable-self-preservation = false 禁用自我保护模式。
+info:
+  app.name: atbdqn-microservicecloud
+  company.name: http://www.kgc.cn/
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+  
+
+   
